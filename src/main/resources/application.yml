@@ -6,6 +6,7 @@ server:
     key-password: tacmot
 # Set the root logging level to WARN , but log Spring Security logs at DEBUG level
 logging:
+  file: readinglist.log
   level:
     root: WARN
     org:
