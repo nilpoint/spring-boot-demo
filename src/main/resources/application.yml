@@ -4,3 +4,10 @@ server:
     key-store: classpath:tomcat.jks
     key-store-password: tacmot
     key-password: tacmot
+# Set the root logging level to WARN , but log Spring Security logs at DEBUG level
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: DEBUG
