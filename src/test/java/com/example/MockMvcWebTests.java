@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -54,10 +55,17 @@ public class MockMvcWebTests {
   
   
   @Test
+  @WithUserDetails("john")
   public void homePageTest() throws Exception {
+    Reader expectedReader = new Reader();
+    expectedReader.setUsername("john");
+    expectedReader.setPassword("smith");
+    expectedReader.setFullname("John Smith");
+    
     mockMvc.perform(get("/"))
       .andExpect(status().isOk())
       .andExpect(view().name("readingList"))
+      .andExpect(model().attribute("reader", samePropertyValuesAs(expectedReader)))
       .andExpect(model().attributeExists("books"))
       .andExpect(model().attribute("books", is(empty())));
   }
